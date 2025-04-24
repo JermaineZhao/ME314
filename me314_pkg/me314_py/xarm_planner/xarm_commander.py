@@ -67,7 +67,7 @@ class ME314_XArm_Queue_Commander(Node):
         self.use_sim = self.get_parameter('use_sim').value
         self.log_info(f"Running with use_sim={self.use_sim}")
 
-        self.declare_parameter('ft_threshold', 2.0)
+        self.declare_parameter('ft_threshold', 4.0)
         self.ft_threshold = self.get_parameter('ft_threshold').value
         self.last_ext_force_mag = 0.0
         self.controller_goal_handle = None
@@ -284,7 +284,7 @@ class ME314_XArm_Queue_Commander(Node):
         collision_objects.append(self.create_box_collision_object("back_wall", 0.001, y_w, 0.6, x_l - 0.5, y_c, 0.25 + z_l))
         collision_objects.append(self.create_box_collision_object("right_wall", x_w, 0.001, 0.6, x_c, y_l - 0.05, 0.25 + z_l))
         collision_objects.append(self.create_box_collision_object("left_wall", x_w, 0.001, 0.6, x_c, y_u + 0.025, 0.25 + z_l))
-        collision_objects.append(self.create_box_collision_object("floor", x_w, y_w, 0.001, x_c, y_c, z_l - 0.005))
+        # collision_objects.append(self.create_box_collision_object("floor", x_w, y_w, 0.001, x_c, y_c, z_l - 0.002))
         
         # Store our boundary collision objects in class attribute
         self.boundary_collision_objects = collision_objects

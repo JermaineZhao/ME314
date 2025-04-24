@@ -22,11 +22,11 @@ class Example(Node):
     def __init__(self):
         super().__init__('example_node')
 
-        # Add new camera node
+        # Add new camera node  /camera/realsense2_camera_node
         self.bridge = CvBridge()
-        self.image_sub = self.create_subscription(Image, '/color/image_raw', self.image_callback, 10)
-        self.depth_sub = self.create_subscription(Image, '/aligned_depth_to_color/image_raw', self.depth_callback, 10)
-        self.camera_info_sub = self.create_subscription(CameraInfo, '/color/camera_info', self.camera_info_callback, 10)
+        self.image_sub = self.create_subscription(Image, '/camera/realsense2_camera_node/color/image_raw', self.image_callback, 10)
+        self.depth_sub = self.create_subscription(Image, '/camera/realsense2_camera_node/aligned_depth_to_color/image_raw', self.depth_callback, 10)
+        self.camera_info_sub = self.create_subscription(CameraInfo, '/camera/realsense2_camera_node/color/camera_info', self.camera_info_callback, 10)
 
         self.latest_image = None
         self.latest_depth = None
