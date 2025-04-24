@@ -1,0 +1,25 @@
+[33mf4e3c09[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Added internal safety check that cancels trajecteries immediately if external force past threshold is detected, docker file updated
+[33m177103e[m Added working FT sensor URDF to xarm7 model
+[33m2d92b49[m FT_sensor working, added ft_monitor example node
+[33m72d0679[m Added working teleoperation with spacemouse
+[33m1b3fc87[m Added green placing location in gazebo
+[33mce416b9[m Fixed some planning scene bugs
+[33m7e5e3f5[m fixed apply planning scene publisher bug
+[33m655a180[m Added moveit planning scene
+[33m1114e4a[m Manual pose checking v2 working
+[33m8023091[m Merge branch 'main' of https://github.com/armlabstanford/ME314_student
+[33ma18f4a6[m Manual planning scene working
+[33m7da6393[m Update README.md
+[33mdfe679c[m Update README.md
+[33m94b23aa[m Update README.md
+[33me1d5d4d[m[33m ([m[1;31morigin/gz_test[m[33m)[m Update README.md
+[33mabd0c69[m dockerfile updated, readme updated
+[33mf93eefc[m updated dockerfile for amd
+[33mde017ed[m fixed gripper init
+[33m5e9e7ab[m Update README.md
+[33m9c38abc[m more delay
+[33m58634a8[m chmod xarm_commander
+[33m7834d7b[m increased launch delays for gazebo
+[33m752bbd6[m setup.py fix
+[33mebeafdc[m fixed dockerfile and cmake
+[33mded4d67[m initial commit

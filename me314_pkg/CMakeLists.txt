@@ -35,6 +35,7 @@ install(PROGRAMS
   me314_py/drivers/install_spacemouse.py
   me314_py/xarm_planner/xarm_a2b_example.py
   me314_py/xarm_planner/xarm_commander.py
+  me314_py/xarm_planner/xarm_pick_n_place.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
