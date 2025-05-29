@@ -55,7 +55,7 @@ class PickAndInsert(Node):
         self.base_frame = 'link_base'
         self.cam_frame = 'camera_link'
         self.safe_height = 0.25  # m – 安全高度 (可按实际修改)
-        self.approach_down = 0.10  # m – 插入/抓取向下距离
+        self.approach_down = 0.01  # m – 插入/抓取向下距离
 
     # ---------- Sub callbacks ----------
     def image_cb(self, msg):
@@ -166,7 +166,7 @@ class PickAndInsert(Node):
     def run_task(self):
         self.wait_for_io()
 
-        # 1️⃣ 粗略识别红蓝中心
+        # 1 粗略识别红蓝中心
         red_uv, blue_uv = self.coarse_centers()
         if red_uv is None or blue_uv is None:
             self.get_logger().error('Failed coarse detection')
@@ -177,11 +177,11 @@ class PickAndInsert(Node):
             self.get_logger().error('Depth/TF failed')
             return
 
-        # 2️⃣ 移动到红色上方 (安全高度)
+        # 2 移动到红色上方 (安全高度)
         above_red = red_xyz.copy(); above_red[2] = self.safe_height
         self.publish_queue([self.make_pose_cmd(to_pose_array(above_red))])
 
-        # 3️⃣ 精细识别圆心
+        # 3 精细识别圆心
         rclpy.spin_once(self, timeout_sec=1.0)  # 等新帧
         fine_uv = self.refine_red_circle()
         if fine_uv:
@@ -191,7 +191,7 @@ class PickAndInsert(Node):
                 red_xyz = fine_xyz
                 self.publish_queue([self.make_pose_cmd(to_pose_array(above_red))])
 
-        # 4️⃣ 下探抓取
+        # 4 下探抓取
         grasp_pose = red_xyz.copy(); grasp_pose[2] -= self.approach_down
         wrappers = [
             self.make_pose_cmd(to_pose_array(grasp_pose)),
@@ -200,11 +200,11 @@ class PickAndInsert(Node):
         ]
         self.publish_queue(wrappers)
 
-        # 5️⃣ 上移后去往蓝色粗略中心
+        # 5 上移后去往蓝色粗略中心
         above_blue = blue_xyz.copy(); above_blue[2] = self.safe_height
         self.publish_queue([self.make_pose_cmd(to_pose_array(above_blue))])
 
-        # 6️⃣ 精细蓝色中心 (插孔)
+        # 6 精细蓝色中心 (插孔)
         rclpy.spin_once(self, timeout_sec=1.0)
         fine_uv = self.refine_blue_square()
         if fine_uv:
@@ -214,7 +214,7 @@ class PickAndInsert(Node):
                 blue_xyz = fine_xyz
                 self.publish_queue([self.make_pose_cmd(to_pose_array(above_blue))])
 
-        # 7️⃣ 插入并松爪
+        # 7 插入并松爪
         insert_pose = blue_xyz.copy(); insert_pose[2] -= self.approach_down
         wrappers = [
             self.make_pose_cmd(to_pose_array(insert_pose)),
@@ -222,7 +222,7 @@ class PickAndInsert(Node):
             self.make_pose_cmd(to_pose_array(above_blue))
         ]
         self.publish_queue(wrappers)
-        self.get_logger().info('Task completed ✅')
+        self.get_logger().info('Task completed')
 
 
 def main(args=None):
